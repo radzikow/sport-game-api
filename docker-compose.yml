@@ -1,0 +1,58 @@
+version: '3.9'
+
+services:
+
+  db-postgres:
+    container_name: db-postgres
+    image: postgres:latest
+    restart: on-failure
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: my_database
+    ports:
+      - "5432:5432"
+    volumes:
+      -  "./postgres_data:/var/lib/postgresql/data"
+    networks:
+      - mynet
+
+  db-pgadmin:
+    image: dpage/pgadmin4
+    restart: on-failure
+    container_name: db-pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=password
+    ports:
+      - '5050:80'
+    depends_on:
+      - db-postgres
+    networks:
+      - mynet
+
+  sport-game-app:
+    container_name: sport-game-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: on-failure
+    depends_on:
+      - db-postgres
+    env_file:
+      - .env
+    ports:
+      - "${API_PORT}:${API_PORT}"
+      - "${API_DEBUG_PORT}:9229"
+    volumes:
+      - "./:/app"
+      - "/app/node_modules"
+    networks:
+      - mynet
+
+networks:
+  mynet:
+    driver: bridge
+
+volumes:
+  postgres_data:
