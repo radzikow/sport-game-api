@@ -1,0 +1,85 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Match {
+  dateTime: DateTime!
+  id: ID!
+  location: String!
+  players: [Player!]!
+  teams: [Team!]!
+}
+
+type MatchConnection {
+  edges: [MatchEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type MatchEdge {
+  cursor: String!
+  node: Match!
+}
+
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+type Player {
+  id: ID!
+  matches: [Match!]!
+  name: String!
+  number: Int!
+  surname: String!
+  team: Team!
+  teamId: String!
+}
+
+type PlayerConnection {
+  edges: [PlayerEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type PlayerEdge {
+  cursor: String!
+  node: Player!
+}
+
+type Query {
+  match(id: String!): Match!
+  matches(after: String, before: String, first: Int, last: Int): MatchConnection!
+  player(id: String!): Player!
+  players(after: String, before: String, first: Int, last: Int): PlayerConnection!
+  team(id: String!): Team!
+  teams(after: String, before: String, first: Int, last: Int): TeamConnection!
+}
+
+type Team {
+  id: ID!
+  name: String!
+  players: [Player!]!
+}
+
+type TeamConnection {
+  edges: [TeamEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TeamEdge {
+  cursor: String!
+  node: Team!
+}

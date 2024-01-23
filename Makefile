@@ -1,4 +1,4 @@
-app=$(shell docker ps -a -q -f "name=sport-game-api")
+app=$(shell docker ps -a -q -f "name=sport-game-app")
 
 build:
 	@docker-compose -f docker-compose.yml build
@@ -21,3 +21,6 @@ logs:
 
 bash:
 	@docker exec -it $(app) sh
+
+seed:
+	psql -h localhost -U postgres -d postgres -a -f seed.psql

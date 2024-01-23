@@ -1,73 +1,251 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Sport Game API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+The Sport Game API is a server application built using NestJS, TypeORM, GraphQL, and PostgreSQL. It provides a GraphQL interface to fetch data related to players, teams, and matches for an abstract sports game.
 
 ## Installation
 
-```bash
-$ npm install
+To install and run the project, follow the steps below:
+
+1. Clone the repository to your local machine.
+  ```
+  git clone https://github.com/radzikow/sport-game-api.git
+  ```
+2. Navigate to the project directory.
+  ```
+  sport-game-api
+  ```
+3. Copy .env.example and create .env file. You can keep the default environments.
+4. Install dependencies: `npm install`
+5. Run the following command to build the Docker containers:
+  ```bash
+  make build
+  ```
+4. Run the following command to start the Docker containers:
+  ```bash
+  make run
+  ```
+
+This will start the PostgreSQL database, the GraphQL server, and the pgAdmin interface.
+
+5. Access the GraphQL playground by opening your browser and navigating to `http://localhost:3000/graphql`.
+
+## Database Seeding
+
+To seed the database with sample data, follow the steps below:
+
+1. Make sure that you have **psql** installed on your computer. Check how to install psql [here](https://www.timescale.com/blog/how-to-install-psql-on-mac-ubuntu-debian-windows/).
+
+2. Open a terminal and navigate to the project directory.
+3. Run the following command to seed the database:
+
+  ```bash
+  make seed
+  ```
+
+   This command will execute the `seed.psql` file and populate the database with sample data. You need to provide the password to the database (by default it's "postgres").
+
+## GraphQL Endpoints
+
+The Sports Game GraphQL API provides the following endpoints:
+
+### Query: matches
+
+Fetches a list of matches.
+
+```graphql
+query {
+  matches {
+    edges {
+      node {
+        id
+        location
+        dateTime
+        teams {
+          id
+          name
+        }
+        players {
+          id
+          name
+          surname
+          number
+        }
+        teams {
+          id
+          name
+        }
+      }
+    }
+  }
+}
 ```
 
-## Running the app
+### Query: players
 
-```bash
-# development
-$ npm run start
+Fetches a list of players.
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```graphql
+query {
+  players {
+    edges {
+      node {
+        id
+        name
+        surname
+        number
+        team {
+          id
+          name
+        }
+        matches {
+          id
+          location
+          dateTime
+        }
+      }
+    }
+  }
+}
 ```
 
-## Test
+### Query: teams
 
-```bash
-# unit tests
-$ npm run test
+Fetches a list of teams.
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```graphql
+query {
+  teams {
+    edges {
+      node {
+        id
+        name
+        players {
+          id
+          name
+          surname
+          number
+        }
+      }
+    }
+  }
+}
 ```
 
-## Support
+### Query: team
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Fetches a specific team by ID.
 
-## Stay in touch
+```graphql
+query {
+  team(id: "team-id") {
+    id
+    name
+    players {
+      id
+      name
+      surname
+      number
+    }
+  }
+}
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Query: player
 
-## License
+Fetches a specific player by ID.
 
-Nest is [MIT licensed](LICENSE).
+```graphql
+query {
+  player(id: "player-id") {
+    id
+    name
+    surname
+    number
+    team {
+      id
+      name
+    }
+  }
+}
+```
+
+### Query: match
+
+Fetches a specific match by ID.
+
+```graphql
+query {
+  match(id: "match-id") {
+    id
+    location
+    dateTime
+    teams {
+      id
+      name
+    }
+    players {
+      id
+      name
+      surname
+      number
+    }
+  }
+}
+```
+
+## Pagination
+
+The API supports pagination for the `matches`, `players`, and `teams` queries. You can use the `first`, `last`, `after`, and `before` arguments to control the number of items returned and navigate through the list.
+
+Example:
+
+```graphql
+query {
+  matches(first: 10, after: "cursor") {
+    edges {
+      node {
+        id
+        location
+        dateTime
+        teams {
+          id
+          name
+        }
+        players {
+          id
+          name
+          surname
+          number
+        }
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+  }
+}
+```
+
+## Data Structure
+
+The Sports Game GraphQL API uses the following data structure:
+
+- `Match`: Represents a match in the sports game. It has properties such as `id`, `location`, `dateTime`, `teams`, and `players`.
+- `Player`: Represents a player in the sports game. It has properties such as `id`, `name`, `surname`, `number`, `team`, and `matches`.
+- `Team`: Represents a team in the sports game. It has properties such as `id`, `name`, and `players`.
+
+## Data Relationships
+
+The data relationships in the Sports Game GraphQL API are as follows:
+
+- A `Match` can have multiple `teams` and multiple `players`.
+- A `Player` belongs to a single `team` and can participate in multiple `matches`.
+- A `Team` can have multiple `players`.
+
+## Dataloader
+
+The Sports Game GraphQL API uses dataloader to optimize data fetching and avoid the N+1 problem. It batches and caches database queries to improve performance.

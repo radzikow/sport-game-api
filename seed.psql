@@ -1,0 +1,90 @@
+-- Run below script to seed database with sample data
+-- psql -h localhost -U postgres -d postgres -a -f seed.psql
+
+TRUNCATE TABLE team RESTART IDENTITY CASCADE;
+
+INSERT INTO team
+  (id, name)
+VALUES
+('5938f132-58bc-4ba1-8d0c-bb1a5e5f3547', 'Shooting Stars'),
+('dcd4d4e5-a681-45ae-b62d-e7a2ab3153d6', 'Mighty Eagles'),
+('b3df1c44-9dd1-40aa-95a4-a0f4a598e45f', 'Rapid Tigers'),
+('f7affd51-4008-461b-8d14-098c5de22aaf', 'Flying Dragons'),
+('1846c06d-a0c8-48d1-9d99-919e732fb142', 'Fighting Bears');
+
+TRUNCATE TABLE player RESTART IDENTITY CASCADE;
+
+INSERT INTO player (id, name, surname, number, "teamId") VALUES
+('286505e6-188e-4164-ba7c-d0534860aae5', 'John', 'Doe', 1, '5938f132-58bc-4ba1-8d0c-bb1a5e5f3547'),
+('ecf09ca9-0a5e-4641-b810-d104234764ea', 'Jane', 'Smith', 2, '5938f132-58bc-4ba1-8d0c-bb1a5e5f3547'),
+('6137d0d0-7c72-4210-86b3-7bbf00ee41df', 'Mike', 'Brown', 3, '5938f132-58bc-4ba1-8d0c-bb1a5e5f3547'),
+('9b299abb-06db-438b-bd2e-c1f4901510bf', 'Emily', 'Davis', 4, '5938f132-58bc-4ba1-8d0c-bb1a5e5f3547'),
+('73b08a94-e7ef-421b-8854-f90fe517366b', 'Chris', 'Wilson', 5, '5938f132-58bc-4ba1-8d0c-bb1a5e5f3547'),
+('0dafa8c9-ebbe-4069-8c0e-244927512c9c', 'Arthur', 'Smith', 1, 'dcd4d4e5-a681-45ae-b62d-e7a2ab3153d6'),
+('cfe53879-17ee-4ce5-ab5e-55cf41d0d9ff', 'Anna', 'Miller', 2, 'dcd4d4e5-a681-45ae-b62d-e7a2ab3153d6'),
+('ac4cd129-3dde-407e-88c2-220c4381d831', 'Tom', 'Moore', 3, 'dcd4d4e5-a681-45ae-b62d-e7a2ab3153d6'),
+('b0c92451-a49c-435c-ab0e-57c682270177', 'Sarah', 'Taylor', 4, 'dcd4d4e5-a681-45ae-b62d-e7a2ab3153d6'),
+('3b580ed3-35a3-4c0d-82bd-067790485bd2', 'Mark', 'Anderson', 5, 'dcd4d4e5-a681-45ae-b62d-e7a2ab3153d6'),
+('413fd593-d0f6-4484-9e0b-d07aae851274', 'Olivia', 'Thomas', 1, 'b3df1c44-9dd1-40aa-95a4-a0f4a598e45f'),
+('afa7e8bb-be6a-4a25-808b-83bf0eb47bb2', 'James', 'Robinson', 2, 'b3df1c44-9dd1-40aa-95a4-a0f4a598e45f'),
+('0f59b2e2-a17b-449f-a7f3-3f14b326e6d0', 'Emma', 'Jackson', 3, 'b3df1c44-9dd1-40aa-95a4-a0f4a598e45f'),
+('8d069d1d-5f6d-4ea8-90a0-0d783cb9bd72', 'David', 'White', 4, 'b3df1c44-9dd1-40aa-95a4-a0f4a598e45f'),
+('7119156e-8d98-4bff-b252-ff4de231975b', 'Hannah', 'Harris', 5, 'b3df1c44-9dd1-40aa-95a4-a0f4a598e45f'),
+('fe5d7e0e-a413-4463-b529-edc3a67fd93e', 'Daniel', 'Martin', 1, 'f7affd51-4008-461b-8d14-098c5de22aaf'),
+('2764729f-763a-4dff-ac29-2e578d0cc505', 'Lisa', 'Clark', 2, 'f7affd51-4008-461b-8d14-098c5de22aaf'),
+('87601f9a-a582-4006-8fd9-3721ef94fcac', 'Paul', 'King', 3, 'f7affd51-4008-461b-8d14-098c5de22aaf'),
+('33fe2b2b-0fc5-4351-99ca-0fe162f69db5', 'Elizabeth', 'Baker', 4, 'f7affd51-4008-461b-8d14-098c5de22aaf'),
+('10c0eb8b-bb66-4bdd-bbc7-c67f3c1da3f7', 'Andrew', 'Green', 5, 'f7affd51-4008-461b-8d14-098c5de22aaf'),
+('727431bc-6f2b-447d-93b9-0d4308e309b3', 'Maria', 'Adams', 1, '1846c06d-a0c8-48d1-9d99-919e732fb142'),
+('c78ba60c-f5f0-4048-b35d-8fe0a8542f49', 'Joshua', 'Lewis', 2, '1846c06d-a0c8-48d1-9d99-919e732fb142'),
+('879ac296-0502-47a8-92a3-fa1471d29b5b', 'Mia', 'Hill', 3, '1846c06d-a0c8-48d1-9d99-919e732fb142'),
+('01cabc95-7d97-4381-b29e-4d3b9293735c', 'Kevin', 'Hughes', 4, '1846c06d-a0c8-48d1-9d99-919e732fb142'),
+('6e9181b5-3b31-4a5c-bd87-1b8872f2c653', 'Sophia', 'Cole', 5, '1846c06d-a0c8-48d1-9d99-919e732fb142');
+
+TRUNCATE TABLE match RESTART IDENTITY CASCADE;
+
+INSERT INTO match (id, location, "dateTime") VALUES
+('2ac21e11-dcfb-4ae0-b01e-1b414708458b', 'London', '2019-01-01'),
+('3ee9d134-ebf0-49cb-a105-623040b09c9f', 'Manchester', '2019-01-02'),
+('610afc43-6171-4451-b16f-35fd9d7551bf', 'Liverpool', '2019-01-03'),
+('efeeb5fc-b9df-4953-9f02-de2ecb192f7d', 'Warsaw', '2019-01-04'),
+('f599256c-a7ed-44d7-9f2f-ff747d07ce73', 'Paris', '2019-01-05'),
+('7b4a25f0-b7e0-4d46-83bd-2e34234acbb9', 'Berlin', '2019-01-06'),
+('c265d7c2-fb68-40ea-83f4-d2a30dcf3a17', 'Madrid', '2019-01-07'),
+('057cc430-f06a-41f0-b82e-0ec401663237', 'Rome', '2019-01-08'),
+('18cfd543-af22-440d-8614-cca85dbd9041', 'Athens', '2019-01-09'),
+('d34000e5-7e10-4e38-8a58-8a6262d5b9ef', 'Moscow', '2019-01-10');
+
+TRUNCATE TABLE participation RESTART IDENTITY CASCADE;
+
+INSERT INTO participation ("playerId", "teamId", "matchId") VALUES
+-- Shooting Stars team participation
+('286505e6-188e-4164-ba7c-d0534860aae5', '5938f132-58bc-4ba1-8d0c-bb1a5e5f3547', '2ac21e11-dcfb-4ae0-b01e-1b414708458b'),
+('ecf09ca9-0a5e-4641-b810-d104234764ea', '5938f132-58bc-4ba1-8d0c-bb1a5e5f3547', '2ac21e11-dcfb-4ae0-b01e-1b414708458b'),
+('6137d0d0-7c72-4210-86b3-7bbf00ee41df', '5938f132-58bc-4ba1-8d0c-bb1a5e5f3547', '3ee9d134-ebf0-49cb-a105-623040b09c9f'),
+('9b299abb-06db-438b-bd2e-c1f4901510bf', '5938f132-58bc-4ba1-8d0c-bb1a5e5f3547', '3ee9d134-ebf0-49cb-a105-623040b09c9f'),
+('73b08a94-e7ef-421b-8854-f90fe517366b', '5938f132-58bc-4ba1-8d0c-bb1a5e5f3547', '610afc43-6171-4451-b16f-35fd9d7551bf'),
+-- Mighty Eagles team participation
+('0dafa8c9-ebbe-4069-8c0e-244927512c9c', 'dcd4d4e5-a681-45ae-b62d-e7a2ab3153d6', '2ac21e11-dcfb-4ae0-b01e-1b414708458b'),
+('cfe53879-17ee-4ce5-ab5e-55cf41d0d9ff', 'dcd4d4e5-a681-45ae-b62d-e7a2ab3153d6', '2ac21e11-dcfb-4ae0-b01e-1b414708458b'),
+('ac4cd129-3dde-407e-88c2-220c4381d831', 'dcd4d4e5-a681-45ae-b62d-e7a2ab3153d6', '3ee9d134-ebf0-49cb-a105-623040b09c9f'),
+('b0c92451-a49c-435c-ab0e-57c682270177', 'dcd4d4e5-a681-45ae-b62d-e7a2ab3153d6', '3ee9d134-ebf0-49cb-a105-623040b09c9f'),
+('3b580ed3-35a3-4c0d-82bd-067790485bd2', 'dcd4d4e5-a681-45ae-b62d-e7a2ab3153d6', '610afc43-6171-4451-b16f-35fd9d7551bf'),
+-- Rapid Tigers team participation
+('413fd593-d0f6-4484-9e0b-d07aae851274', 'b3df1c44-9dd1-40aa-95a4-a0f4a598e45f', '2ac21e11-dcfb-4ae0-b01e-1b414708458b'),
+('afa7e8bb-be6a-4a25-808b-83bf0eb47bb2', 'b3df1c44-9dd1-40aa-95a4-a0f4a598e45f', '2ac21e11-dcfb-4ae0-b01e-1b414708458b'),
+('0f59b2e2-a17b-449f-a7f3-3f14b326e6d0', 'b3df1c44-9dd1-40aa-95a4-a0f4a598e45f', '3ee9d134-ebf0-49cb-a105-623040b09c9f'),
+('8d069d1d-5f6d-4ea8-90a0-0d783cb9bd72', 'b3df1c44-9dd1-40aa-95a4-a0f4a598e45f', '3ee9d134-ebf0-49cb-a105-623040b09c9f'),
+('7119156e-8d98-4bff-b252-ff4de231975b', 'b3df1c44-9dd1-40aa-95a4-a0f4a598e45f', '610afc43-6171-4451-b16f-35fd9d7551bf'),
+-- Flying Dragons team participation
+('fe5d7e0e-a413-4463-b529-edc3a67fd93e', 'f7affd51-4008-461b-8d14-098c5de22aaf', '2ac21e11-dcfb-4ae0-b01e-1b414708458b'),
+('2764729f-763a-4dff-ac29-2e578d0cc505', 'f7affd51-4008-461b-8d14-098c5de22aaf', '2ac21e11-dcfb-4ae0-b01e-1b414708458b'),
+('87601f9a-a582-4006-8fd9-3721ef94fcac', 'f7affd51-4008-461b-8d14-098c5de22aaf', '3ee9d134-ebf0-49cb-a105-623040b09c9f'),
+('33fe2b2b-0fc5-4351-99ca-0fe162f69db5', 'f7affd51-4008-461b-8d14-098c5de22aaf', '3ee9d134-ebf0-49cb-a105-623040b09c9f'),
+('10c0eb8b-bb66-4bdd-bbc7-c67f3c1da3f7', 'f7affd51-4008-461b-8d14-098c5de22aaf', '610afc43-6171-4451-b16f-35fd9d7551bf'),
+-- Fighting Bears team participation
+('727431bc-6f2b-447d-93b9-0d4308e309b3', '1846c06d-a0c8-48d1-9d99-919e732fb142', '2ac21e11-dcfb-4ae0-b01e-1b414708458b'),
+('c78ba60c-f5f0-4048-b35d-8fe0a8542f49', '1846c06d-a0c8-48d1-9d99-919e732fb142', '2ac21e11-dcfb-4ae0-b01e-1b414708458b'),
+('879ac296-0502-47a8-92a3-fa1471d29b5b', '1846c06d-a0c8-48d1-9d99-919e732fb142', '3ee9d134-ebf0-49cb-a105-623040b09c9f'),
+('01cabc95-7d97-4381-b29e-4d3b9293735c', '1846c06d-a0c8-48d1-9d99-919e732fb142', '3ee9d134-ebf0-49cb-a105-623040b09c9f'),
+('6e9181b5-3b31-4a5c-bd87-1b8872f2c653', '1846c06d-a0c8-48d1-9d99-919e732fb142', '610afc43-6171-4451-b16f-35fd9d7551bf');
