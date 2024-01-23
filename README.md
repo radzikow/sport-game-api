@@ -6,24 +6,12 @@ The Sport Game API is a server application built using NestJS, TypeORM, GraphQL,
 
 To install and run the project, follow the steps below:
 
-1. Clone the repository to your local machine.
-  ```
-  git clone https://github.com/radzikow/sport-game-api.git
-  ```
-2. Navigate to the project directory.
-  ```
-  sport-game-api
-  ```
-3. Copy .env.example and create .env file. You can keep the default environments.
+1. Clone the repository to your local machine: `git clone https://github.com/radzikow/sport-game-api.git`
+2. Navigate to the project directory: `cd sport-game-api`
+3. Copy .env.example and create .env file: `cp .env.example .env`
 4. Install dependencies: `npm install`
-5. Run the following command to build the Docker containers:
-  ```bash
-  make build
-  ```
-4. Run the following command to start the Docker containers:
-  ```bash
-  make run
-  ```
+5. Run the following command to build the Docker containers: `make build`
+4. Run the following command to start the Docker containers: `make run`
 
 This will start the PostgreSQL database, the GraphQL server, and the pgAdmin interface.
 
@@ -36,11 +24,7 @@ To seed the database with sample data, follow the steps below:
 1. Make sure that you have **psql** installed on your computer. Check how to install psql [here](https://www.timescale.com/blog/how-to-install-psql-on-mac-ubuntu-debian-windows/).
 
 2. Open a terminal and navigate to the project directory.
-3. Run the following command to seed the database:
-
-  ```bash
-  make seed
-  ```
+3. Run the following command to seed the database: `make seed`
 
    This command will execute the `seed.psql` file and populate the database with sample data. You need to provide the password to the database (by default it's "postgres").
 
