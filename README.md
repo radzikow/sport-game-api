@@ -11,11 +11,11 @@ To install and run the project, follow the steps below:
 3. Copy .env.example and create .env file: `cp .env.example .env`
 4. Install dependencies: `npm install`
 5. Run the following command to build the Docker containers: `make build`
-4. Run the following command to start the Docker containers: `make run`
+6. Run the following command to start the Docker containers: `make run`
 
 This will start the PostgreSQL database, the GraphQL server, and the pgAdmin interface.
 
-5. Access the GraphQL playground by opening your browser and navigating to `http://localhost:3000/graphql`.
+7. Access the GraphQL playground by opening your browser and navigating to `http://localhost:3000/graphql`.
 
 ## Database Seeding
 
